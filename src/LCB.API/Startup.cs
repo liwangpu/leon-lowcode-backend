@@ -1,3 +1,7 @@
+using LCB.API.Infrastructure.Datastores;
+using LCB.Domain.AggregateModels.BookAggregate;
+using LCB.Infrastructure.Datastores;
+using LCB.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +29,9 @@ namespace LCB.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<BookStoreSettings>(Configuration.GetSection(nameof(BookStoreSettings)));
+            services.AddSingleton<IBookStoreSettings>(sp => sp.GetRequiredService<IOptions<BookStoreSettings>>().Value);
+            services.AddSingleton<IBookRepository, BookRepository>();
             services.AddControllers();
         }
 

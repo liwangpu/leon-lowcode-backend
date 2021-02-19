@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\LCB.Domain\LCB.Domain.csproj" />
+    <ProjectReference Include="..\LCB.Infrastructure\LCB.Infrastructure.csproj" />
   </ItemGroup>
 
 
