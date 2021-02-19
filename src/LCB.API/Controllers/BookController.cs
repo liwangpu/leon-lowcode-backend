@@ -16,12 +16,18 @@ namespace LCB.API.Controllers
     public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IBookRepository _bookRepository;
 
         public BookController(IMediator mediator)
         {
             _mediator = mediator;
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var list = await _mediator.Send(query);
+        //    return Ok(list);
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)

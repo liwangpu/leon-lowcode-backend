@@ -15,7 +15,7 @@ namespace LCB.API.Application.Queries.Books
 
         public async Task<BookIdentityQueryDTO> Handle(BookIdentityQuery request, CancellationToken cancellationToken)
         {
-            var book = _bookRepository.Get(request.Id);
+            var book = await _bookRepository.Get(request.Id);
             return BookIdentityQueryDTO.From(book);
         }
     }

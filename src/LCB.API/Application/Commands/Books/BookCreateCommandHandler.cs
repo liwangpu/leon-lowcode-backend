@@ -19,7 +19,7 @@ namespace LCB.API.Application.Commands.Books
         public async Task<string> Handle(BookCreateCommand request, CancellationToken cancellationToken)
         {
             var book = new Book(request.Name);
-            _bookRepository.Create(book);
+            await _bookRepository.Create(book);
             return book.Id;
         }
     }

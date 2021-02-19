@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Base.Domain.Models;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace LCB.Domain.AggregateModels.BookAggregate
 {
-    public interface IBookRepository
+    public interface IBookRepository : IRepository
     {
-        List<Book> Get();
-        Book Create(Book book);
-        Book Get(string id);
+        Task<List<Book>> Get();
+        Task<Book> Create(Book book);
+        Task<Book> Get(string id);
     }
 }
