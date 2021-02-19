@@ -1,19 +1,17 @@
+using FluentValidation.AspNetCore;
+using LCB.API.Application.Validations.Books;
 using LCB.API.Infrastructure.Datastores;
 using LCB.Domain.AggregateModels.BookAggregate;
 using LCB.Infrastructure.Datastores;
 using LCB.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace LCB.API
 {
@@ -32,7 +30,9 @@ namespace LCB.API
             services.Configure<BookStoreSettings>(Configuration.GetSection(nameof(BookStoreSettings)));
             services.AddSingleton<IBookStoreSettings>(sp => sp.GetRequiredService<IOptions<BookStoreSettings>>().Value);
             services.AddSingleton<IBookRepository, BookRepository>();
-            services.AddControllers();
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<BookCreateValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

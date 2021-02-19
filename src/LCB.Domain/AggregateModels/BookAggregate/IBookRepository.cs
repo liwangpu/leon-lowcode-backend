@@ -8,5 +8,6 @@ namespace LCB.Domain.AggregateModels.BookAggregate
     {
         List<Book> Get();
         Book Create(Book book);
+        Book Get(string id);
     }
 }

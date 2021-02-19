@@ -1,4 +1,7 @@
-﻿using LCB.Domain.AggregateModels.BookAggregate;
+﻿using LCB.API.Application.Commands.Books;
+using LCB.API.Application.Queries.Books;
+using LCB.Domain.AggregateModels.BookAggregate;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,26 +15,45 @@ namespace LCB.API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-
+        private readonly IMediator _mediator;
         private readonly IBookRepository _bookRepository;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IMediator mediator)
         {
-            _bookRepository = bookRepository;
+            _mediator = mediator;
         }
 
-        [HttpGet]
-        public ActionResult<List<Book>> Get() =>
-           _bookRepository.Get();
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var dto = await _mediator.Send(new BookIdentityQuery(id));
+            return Ok(dto);
+        }
 
         [HttpPost]
-        public ActionResult<Book> Create(Book book)
+        public async Task<IActionResult> Create([FromBody] BookCreateCommand command)
         {
-            _bookRepository.Create(book);
-
-            //return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
-
-            return Ok(book);
+            var id = await _mediator.Send(command);
+            return await Get(id);
         }
+
+        //public BookController(IBookRepository bookRepository)
+        //{
+        //    _bookRepository = bookRepository;
+        //}
+
+        //[HttpGet]
+        //public ActionResult<List<Book>> Get() =>
+        //   _bookRepository.Get();
+
+        //[HttpPost]
+        //public ActionResult<Book> Create(Book book)
+        //{
+        //    _bookRepository.Create(book);
+
+        //    //return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+
+        //    return Ok(book);
+        //}
     }
 }
