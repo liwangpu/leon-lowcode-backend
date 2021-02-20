@@ -22,12 +22,12 @@ namespace LCB.API.Controllers
             _mediator = mediator;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    var list = await _mediator.Send(query);
-        //    return Ok(list);
-        //}
+        [HttpPost("Query")]
+        public async Task<IActionResult> Query([FromBody] BookQuery command)
+        {
+            await _mediator.Send(command);
+            return Ok(1);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)

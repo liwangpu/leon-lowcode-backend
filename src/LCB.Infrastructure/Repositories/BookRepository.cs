@@ -28,7 +28,7 @@ namespace LCB.Infrastructure.Repositories
             return book;
         }
 
-        public async Task<List<Book>> Get()
+        public async Task<List<Book>> Query()
         {
             return _books.Find(book => true).ToList();
         }

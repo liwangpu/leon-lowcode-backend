@@ -6,7 +6,7 @@ namespace LCB.Domain.AggregateModels.BookAggregate
 {
     public interface IBookRepository : IRepository
     {
-        Task<List<Book>> Get();
+        Task<List<Book>> Query();
         Task<Book> Create(Book book);
         Task<Book> Get(string id);
     }
