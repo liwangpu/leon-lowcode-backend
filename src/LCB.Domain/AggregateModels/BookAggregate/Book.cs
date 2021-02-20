@@ -1,9 +1,6 @@
 ﻿using Base.Domain.Common;
 using Base.Domain.Models;
 using LCB.Domain.Events.BookEvents;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LCB.Domain.AggregateModels.BookAggregate
 {

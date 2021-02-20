@@ -24,6 +24,7 @@ namespace LCB.Infrastructure.Repositories
         public async Task<Book> Create(Book book)
         {
             _books.InsertOne(book);
+            await _mediator.DispatchDomainEventsAsync(book);
             return book;
         }
 

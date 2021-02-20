@@ -32,7 +32,7 @@ namespace LCB.API
             services.AddSingleton<IBookRepository, BookRepository>();
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<BookCreateValidator>());
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BookCreateValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
